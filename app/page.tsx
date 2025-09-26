@@ -8,6 +8,10 @@ import { Badge } from "./_components/ui/badge";
 import { Avatar, AvatarImage } from "./_components/ui/avatar";
 import { db } from "./_lib/prisma";
 import Barbershopitem from "./_components/barbershop-item";
+import { quickSearchOptions, QuisearchOption } from "./_constants/serach";
+import BookingItem from "./_components/booking-item";
+
+
 
 const Home = async () =>{
 
@@ -36,20 +40,14 @@ const Home = async () =>{
 
         {/* BUSCA RAPIDA */}
         <div className="flex gap-3 mt-6 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
-          <Button className="gap-2" variant="secondary">
-           <Image alt="Icone cabelo" src="/cabelo.svg" width={16} height={16}/>
-            Cabelo
-          </Button>
-
-          <Button className="gap-2" variant="secondary">
-           <Image alt="Icone barba" src="/barba.svg" width={16} height={16}/>
-            Barba
-          </Button>
-
-          <Button className="gap-2" variant="secondary">
-           <Image alt="Icone acabamento" src="/acabamento.svg" width={16} height={16}/>
-            Acabamento
-          </Button>
+          {quickSearchOptions.map((option: QuisearchOption) =>
+            (
+              <Button key={option.title} className="gap-2" variant="secondary">
+               <Image alt="Icone cabelo" src={option.imageUrl} width={16} height={16}/>
+                {option.title}
+              </Button>
+            )
+          )}
         </div>
 
         {/* BANNER */}
@@ -58,33 +56,7 @@ const Home = async () =>{
         </div>
 
         {/* AGENDAMENTO */}
-        <h2 className="uppercase font-bold text-xs text-gray-400 mt-6 mb-3">
-          Agendamentos
-        </h2>
-        <Card>
-          <CardContent className="flex justify-between p-0">
-            {/* ESQUERDA */}
-            <div className="flex flex-col gap-2 py-5 pl-5">
-              <Badge className="w-fit">Confirmado</Badge>
-              <h3 className="font-semibold">Corte de Cabelo</h3>
-
-             <div className="flex items-center">
-                <Avatar className="h-6 w-6">
-                  <AvatarImage alt="Foto de Perfil" src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png"/>
-                </Avatar>
-                <p className="text-sm">Barbearia Full-Stack</p>
-             </div>
-
-            </div>
-
-            {/* DIREITA */}
-            <div className="flex flex-col items-center justify-center px-5 border-l-2 border-solid">
-              <p className="text-sm">Agosto</p>
-              <p className="text-2xl">05</p>
-              <p className="text-sm">20:00</p>
-            </div>
-          </CardContent>
-        </Card>
+        <BookingItem/>
 
         {/* RECOMENDADOS */}
         <h2 className="uppercase font-bold text-xs text-gray-400 mt-6 mb-3">
