@@ -12,6 +12,11 @@ import Barbershopitem from "./_components/barbershop-item";
 const Home = async () =>{
 
   const barbershops = await db.baberShop.findMany();
+  const popularesBarberShops = await db.baberShop.findMany({
+    orderBy:{
+      name: 'desc'
+    }
+  });
 
   return ( 
     <div>
@@ -26,6 +31,24 @@ const Home = async () =>{
           <Input placeholder="Search"/>
           <Button>
             <SearchIcon/>
+          </Button>
+        </div>
+
+        {/* BUSCA RAPIDA */}
+        <div className="flex gap-3 mt-6 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
+          <Button className="gap-2" variant="secondary">
+           <Image alt="Icone cabelo" src="/cabelo.svg" width={16} height={16}/>
+            Cabelo
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+           <Image alt="Icone barba" src="/barba.svg" width={16} height={16}/>
+            Barba
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+           <Image alt="Icone acabamento" src="/acabamento.svg" width={16} height={16}/>
+            Acabamento
           </Button>
         </div>
 
@@ -70,7 +93,24 @@ const Home = async () =>{
         <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
           {barbershops.map(barbershop => <Barbershopitem key={barbershop.id} barbershop={barbershop}/>)}
         </div>
+
+        {/* POPULARES */}
+        <h2 className="uppercase font-bold text-xs text-gray-400 mt-6 mb-3">
+          Populares
+        </h2>
+        <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
+          {popularesBarberShops.map(barbershop => <Barbershopitem key={barbershop.id} barbershop={barbershop}/>)}
+        </div>
+
       </div>
+      
+      <footer>
+        <Card className="py-6 px-5">
+          <CardContent className="text-sm text-gray font-bold">
+              © {new Date().getFullYear()} Barbearia Estilo — Todos os direitos reservados.
+          </CardContent>
+        </Card>
+      </footer>
     </div>
   );
 }
