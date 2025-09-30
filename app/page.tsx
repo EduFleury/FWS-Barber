@@ -3,7 +3,6 @@ import { Input } from "@/app/_components/ui/input";
 import Header from "./_components/header";
 import { SearchIcon } from "lucide-react";
 import Image from "next/image";
-import { Card, CardContent } from "./_components/ui/card";
 import { Badge } from "./_components/ui/badge";
 import { Avatar, AvatarImage } from "./_components/ui/avatar";
 import { db } from "./_lib/prisma";
@@ -75,14 +74,7 @@ const Home = async () =>{
         </div>
 
       </div>
-      
-      <footer>
-        <Card className="py-6 px-5">
-          <CardContent className="text-sm text-gray font-bold">
-              © {new Date().getFullYear()} Barbearia Estilo — Todos os direitos reservados.
-          </CardContent>
-        </Card>
-      </footer>
+    
     </div>
   );
 }
