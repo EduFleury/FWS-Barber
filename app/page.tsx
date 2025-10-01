@@ -3,8 +3,6 @@ import { Input } from "@/app/_components/ui/input";
 import Header from "./_components/header";
 import { SearchIcon } from "lucide-react";
 import Image from "next/image";
-import { Badge } from "./_components/ui/badge";
-import { Avatar, AvatarImage } from "./_components/ui/avatar";
 import { db } from "./_lib/prisma";
 import Barbershopitem from "./_components/barbershop-item";
 import { quickSearchOptions, QuisearchOption } from "./_constants/serach";
