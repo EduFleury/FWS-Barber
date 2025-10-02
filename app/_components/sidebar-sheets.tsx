@@ -74,11 +74,16 @@ const SidebarSheets = () =>{
                 <Button className=" justify-start gap-2" variant="ghost"><CalendarRangeIcon size={18}/>Agendamento</Button>
             </div>
             <div className="py-5 flex flex-col gap-1 border-b border-solid">
+                <h3 className=" text-gray-400 ml-3">Serviços</h3>
                 {quickSearchOptions.map(option => (
-                    <Button key={option.title} className=" justify-start gap-2" variant="ghost">
-                        <Image src={option.imageUrl} height={18} width={18} alt={option.title}/>
-                        {option.title}
-                    </Button>
+                    <SheetClose key={option.title} asChild>
+                        <Link href={`/barbershops?service=${option.title}`}>
+                            <Button className=" justify-start gap-2" variant="ghost">
+                                    <Image src={option.imageUrl} height={18} width={18} alt={option.title}/>
+                                {option.title}
+                            </Button>
+                        </Link>
+                    </SheetClose>
                 ))}
             </div>
             <div className="py-5 flex flex-col gap-1">

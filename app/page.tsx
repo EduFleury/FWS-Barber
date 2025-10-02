@@ -8,6 +8,7 @@ import Barbershopitem from "./_components/barbershop-item";
 import { quickSearchOptions, QuisearchOption } from "./_constants/serach";
 import BookingItem from "./_components/booking-item";
 import Search from "./_components/search";
+import Link from "next/link";
 
 
 
@@ -37,10 +38,12 @@ const Home = async () =>{
         <div className="flex gap-3 mt-6 overflow-x-scroll [&::-webkit-scrollbar]:hidden">
           {quickSearchOptions.map((option: QuisearchOption) =>
             (
-              <Button key={option.title} className="gap-2" variant="secondary">
+              <Link key={option.title} href={`/barbershops?service=${option.title}`}>
+              <Button  className="gap-2" variant="secondary">
                <Image alt="Icone cabelo" src={option.imageUrl} width={16} height={16}/>
                 {option.title}
               </Button>
+              </Link>
             )
           )}
         </div>
