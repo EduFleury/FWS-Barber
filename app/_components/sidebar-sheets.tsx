@@ -8,6 +8,7 @@ import { Avatar, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
 import { Dialog, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogContent } from "./ui/dialog";
 import { signIn, signOut, useSession } from "next-auth/react";
+import SingInDialog from "./sing-in-dialog";
 
 
 const SidebarSheets = () =>{
@@ -44,19 +45,7 @@ const SidebarSheets = () =>{
                                 </Button>
                             </DialogTrigger>
                             <DialogContent className="w-[90%]">
-                                <DialogHeader>
-                                    <DialogTitle>
-                                        Faça seu Login na plataforma
-                                    </DialogTitle>
-
-                                    <DialogDescription>
-                                        Conecte-se usando sua conta do Google.
-                                    </DialogDescription>
-                                </DialogHeader>
-                                <Button variant="outline" className=" font-bold gap-1" onClick={handleLoginWithGoogleClick }>
-                                    <Image src="/google.svg" width={18} height={18} alt="fazer login com Google"/>
-                                    Google
-                                </Button>
+                                <SingInDialog/>
                             </DialogContent>
                         </Dialog>
                     </>
