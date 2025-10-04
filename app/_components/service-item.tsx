@@ -13,7 +13,7 @@ import { createBooking } from "../_actions/create-booking";
 import { useSession } from "next-auth/react";
 import { toast } from "sonner";
 import { getBookings } from "../_actions/get-bookings";
-import { Dialog, DialogContent } from "@radix-ui/react-dialog";
+import { Dialog, DialogContent } from "../_components/ui/dialog";
 import SingInDialog from "./sing-in-dialog";
 
 interface ServiceItemProps{
@@ -135,7 +135,6 @@ const ServiceItem = ({service, barbershop}:ServiceItemProps) =>{
 
             await createBooking({
                 serviceId: service.id,
-                userId: (data?.user as any).id,
                 date: newDate
             })
             handleSheetsOpenChange();
