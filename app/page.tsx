@@ -9,10 +9,33 @@ import { quickSearchOptions, QuisearchOption } from "./_constants/serach";
 import BookingItem from "./_components/booking-item";
 import Search from "./_components/search";
 import Link from "next/link";
+import { authOptions } from "./_lib/auth";
+import { getServerSession } from "next-auth";
 
 
 
 const Home = async () =>{
+
+  const session = await getServerSession(authOptions)
+
+  const confirmedBookings = session?.user ? await db.booking.findMany({
+        where:{
+            userId: (session?.user as any).id,
+            date:{
+                gte: new Date(),
+            }
+        },
+        include: {
+            service:{
+                include:{
+                    barberShop: true
+                }
+            }
+        },
+        orderBy:{
+          date: 'asc'
+        }
+    }) : []
 
   const barbershops = await db.baberShop.findMany();
   const popularesBarberShops = await db.baberShop.findMany({
@@ -54,7 +77,14 @@ const Home = async () =>{
         </div>
 
         {/* AGENDAMENTO */}
-        <BookingItem/>
+         <h2 className="uppercase font-bold text-xs text-gray-400 mt-6 mb-3">
+          Agendamentos
+        </h2>
+        <div className="flex overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden">
+           {confirmedBookings.map((bookings) =>(
+             <BookingItem key={bookings.id} booking={bookings}/>
+           ))}
+        </div>
 
         {/* RECOMENDADOS */}
         <h2 className="uppercase font-bold text-xs text-gray-400 mt-6 mb-3">
