@@ -1,9 +1,4 @@
 
-import { Card, CardContent } from "./ui/card";
-import { ptBR } from "date-fns/locale";
-import { format, set } from "date-fns";
-
-
 const BookingSumary = () =>{
     return(
         // <Card>

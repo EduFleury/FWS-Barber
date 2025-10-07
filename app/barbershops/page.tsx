@@ -13,7 +13,7 @@ interface BarberShopPageProps{
 }
 
 const BarberShopPage = async ({searchParams}: BarberShopPageProps) =>{
-    const barbershop = await db.baberShop.findMany({
+    const barbershops = await db.baberShop.findMany({
         where:{
             OR:[
                 searchParams?.title ? {
@@ -45,7 +45,7 @@ const BarberShopPage = async ({searchParams}: BarberShopPageProps) =>{
             <div className="px-5">
                 <h2 className="uppercase font-bold text-xs text-gray-400 mt-6 mb-3">Resultados para &quot;{searchParams?.title || searchParams?.service}&quot;</h2>
                 <div className="grid grid-cols-2 gap-4">
-                    {barbershop.map(barbershop =>(
+                    {barbershops.map(barbershop =>(
                         <Barbershopitem key={barbershop.id} barbershop={barbershop}/>
                     ))}
                 </div>

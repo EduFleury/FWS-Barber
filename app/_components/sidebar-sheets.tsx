@@ -6,15 +6,15 @@ import {SheetClose, SheetContent, SheetHeader, SheetTitle} from "./ui/sheet";
 import { quickSearchOptions } from "../_constants/serach";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import Link from "next/link";
-import { Dialog, DialogDescription, DialogHeader, DialogTitle, DialogTrigger, DialogContent } from "./ui/dialog";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { Dialog, DialogTrigger, DialogContent } from "./ui/dialog";
+import { signOut, useSession } from "next-auth/react";
 import SingInDialog from "./sing-in-dialog";
 
 
 const SidebarSheets = () =>{
 
     const {data} = useSession();
-    const handleLoginWithGoogleClick = () => signIn("google")
+    // const handleLoginWithGoogleClick = () => signIn("google")
     const handleSingOutClick = () => signOut()
 
     return (

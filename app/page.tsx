@@ -1,7 +1,5 @@
 import { Button } from "@/app/_components/ui/button";
-import { Input } from "@/app/_components/ui/input";
 import Header from "./_components/header";
-import { SearchIcon } from "lucide-react";
 import Image from "next/image";
 import { db } from "./_lib/prisma";
 import Barbershopitem from "./_components/barbershop-item";
@@ -11,6 +9,7 @@ import Search from "./_components/search";
 import Link from "next/link";
 import { authOptions } from "./_lib/auth";
 import { getServerSession } from "next-auth";
+import TextHome from "./_components/home";
 
 
 
@@ -18,7 +17,7 @@ const Home = async () =>{
 
   const session = await getServerSession(authOptions)
 
-  const confirmedBookings = session?.user ? await db.booking.findMany({
+  const confirmedBookingsRaw = session?.user ? await db.booking.findMany({
         where:{
             userId: (session?.user as any).id,
             date:{
@@ -37,6 +36,16 @@ const Home = async () =>{
         }
     }) : []
 
+    const confirmedBookings = confirmedBookingsRaw.map((booking) => ({
+      ...booking,
+      service: {
+        ...booking.service,
+        price: Number(booking.service.price),
+        barberShop: booking.service.barberShop,
+      },
+    }));
+
+
   const barbershops = await db.baberShop.findMany();
   const popularesBarberShops = await db.baberShop.findMany({
     orderBy:{
@@ -49,8 +58,7 @@ const Home = async () =>{
       <Header/>
       <div className="p-5">
         {/* TEXTO */}
-        <h2 className="text-xl font-bold">Olá, Eduardo!</h2>
-        <p>Segunda-feria, 05 de agosto.</p>
+        <TextHome/>
         
         {/* BUSCA */}
         <div className="mt-6">
