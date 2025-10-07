@@ -3,7 +3,7 @@
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Avatar, AvatarImage } from "./ui/avatar";
-import { Booking, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { format, isFuture } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { Sheet, SheetClose, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from "./ui/sheet";
@@ -23,6 +23,7 @@ import {
 import { toast } from "sonner"
 import { useState } from "react"
 import { deleteBooking } from "../_actions/delete-booking";
+
 interface BookingItemProps{
   booking: Prisma.BookingGetPayload<{
     include: {
