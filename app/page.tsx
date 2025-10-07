@@ -17,7 +17,7 @@ const Home = async () =>{
 
   const session = await getServerSession(authOptions)
 
-  const confirmedBookingsRaw = session?.user ? await db.booking.findMany({
+  const confirmedBookings = session?.user ? await db.booking.findMany({
         where:{
             userId: (session?.user as any).id,
             date:{
@@ -35,16 +35,6 @@ const Home = async () =>{
           date: 'asc'
         }
     }) : []
-
-    const confirmedBookings = confirmedBookingsRaw.map((booking) => ({
-      ...booking,
-      service: {
-        ...booking.service,
-        price: Number(booking.service.price),
-        barberShop: booking.service.barberShop,
-      },
-    }));
-
 
   const barbershops = await db.baberShop.findMany();
   const popularesBarberShops = await db.baberShop.findMany({
