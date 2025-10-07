@@ -14,7 +14,7 @@ const Bookings = async () =>{
         return notFound()
     }
 
-    const confirmedBookings = await db.booking.findMany({
+    const confirmedBookingsRaw = await db.booking.findMany({
         where:{
             userId: (session.user as any).id,
             date:{
@@ -33,7 +33,16 @@ const Bookings = async () =>{
         }
     })
 
-    const concludeddBookings = await db.booking.findMany({
+    const confirmedBookings = confirmedBookingsRaw.map((booking) => ({
+     ...booking,
+     service: {
+       ...booking.service,
+       price: Number(booking.service.price), // 👈 Converte Decimal para number
+       barberShop: booking.service.barberShop,
+     },
+    }));
+
+    const concludedBookingsRaw = await db.booking.findMany({
         where:{
             userId: (session.user as any).id,
             date:{
@@ -51,6 +60,15 @@ const Bookings = async () =>{
           date: 'asc'
         }
     })
+
+    const concludeddBookings = concludedBookingsRaw.map((booking) => ({
+      ...booking,
+      service: {
+        ...booking.service,
+        price: Number(booking.service.price),
+        barberShop: booking.service.barberShop,
+      },
+    }));
 
     return (
     <>

@@ -20,5 +20,6 @@ export const authOptions: AuthOptions = {
             }as any
             return session
         }
-    }
+    },
+    secret: process.env.NEXTAUTH_SECRET
 }
