@@ -10,6 +10,7 @@ import Link from "next/link";
 import { authOptions } from "./_lib/auth";
 import { getServerSession } from "next-auth";
 import TextHome from "./_components/home";
+import { getConfirmedBookings } from "./_date/get-confirmed-bookings";
 
 
 
@@ -17,24 +18,7 @@ const Home = async () =>{
 
   const session = await getServerSession(authOptions)
 
-  const confirmedBookings = session?.user ? await db.booking.findMany({
-        where:{
-            userId: (session?.user as any).id,
-            date:{
-                gte: new Date(),
-            }
-        },
-        include: {
-            service:{
-                include:{
-                    barberShop: true
-                }
-            }
-        },
-        orderBy:{
-          date: 'asc'
-        }
-    }) : []
+  const confirmedBookings = await getConfirmedBookings()
 
   const barbershops = await db.baberShop.findMany();
   const popularesBarberShops = await db.baberShop.findMany({

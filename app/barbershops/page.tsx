@@ -1,7 +1,7 @@
 import { Search } from "lucide-react"
 import Barbershopitem from "../_components/barbershop-item"
 import Header from "../_components/header"
-import { db } from "../_lib/prisma"
+import { getBarbershopsParam } from "../_date/get-BarberShopsParams"
 
 interface BarberShopPageProps{
 
@@ -13,28 +13,7 @@ interface BarberShopPageProps{
 }
 
 const BarberShopPage = async ({searchParams}: BarberShopPageProps) =>{
-    const barbershops = await db.baberShop.findMany({
-        where:{
-            OR:[
-                searchParams?.title ? {
-                    name:{
-                        contains: searchParams?.title,
-                        mode: "insensitive"
-                    }
-                }: {},
-                searchParams?.service ? {
-                    services:{
-                        some:{
-                            name:{
-                                contains: searchParams?.service,
-                                mode: "insensitive"
-                            }
-                        }
-                    }
-                }: {},
-            ]
-        }
-    })
+    const barbershops = await  getBarbershopsParam(searchParams)
 
     return(
         <div >
