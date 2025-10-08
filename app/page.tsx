@@ -84,7 +84,7 @@ const Home = async () =>{
 
             <div className="flex overflow-x-auto gap-3 [&::-webkit-scrollbar]:hidden">
                {confirmedBookings.map((bookings) =>(
-                 <BookingItem key={bookings.id} booking={bookings}/>
+                 <BookingItem key={bookings.id} booking={JSON.parse(JSON.stringify(bookings))}/>
                ))}
             </div>
           </>
@@ -96,7 +96,7 @@ const Home = async () =>{
           Recomendados
         </h2>
         <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
-          {barbershops.map(barbershop => <Barbershopitem key={barbershop.id} barbershop={barbershop}/>)}
+          {barbershops.map(barbershop => <Barbershopitem key={barbershop.id} barbershop={JSON.parse(JSON.stringify(barbershop))}/>)}
         </div>
 
         {/* POPULARES */}
@@ -104,7 +104,7 @@ const Home = async () =>{
           Populares
         </h2>
         <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
-          {popularesBarberShops.map(barbershop => <Barbershopitem key={barbershop.id} barbershop={barbershop}/>)}
+          {popularesBarberShops.map(barbershop => <Barbershopitem key={barbershop.id} barbershop={JSON.parse(JSON.stringify(barbershop))}/>)}
         </div>
 
       </div>

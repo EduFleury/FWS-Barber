@@ -10,16 +10,14 @@ import { notFound } from "next/navigation";
 import SidebarSheets from "@/app/_components/sidebar-sheets";
 
 interface BarbershopPageProps{
-    params: {
-        id: string
-    }
+    params: Promise<{ id: string }>;
 }
 
 const BarberShopPage = async ({params}:BarbershopPageProps) => {
-
+  const { id } = await params;
   const barbershop = await db.baberShop.findUnique({
     where:{
-        id: params.id
+        id: id
     },
     include:{
         services: true
@@ -82,7 +80,7 @@ const BarberShopPage = async ({params}:BarbershopPageProps) => {
         <div className="p-5 space-y-3 border-b border-solid">
             <h2 className="font-bold uppercase text-gray-400 text-sx mb-3">Serviços</h2>
             <div className=" space-y-3">
-                {barbershop.services.map(service => <ServiceItem service={service} barbershop={barbershop} key={service.id}/>)}
+                {barbershop.services.map(service => <ServiceItem service={JSON.parse(JSON.stringify(service))} barbershop={JSON.parse(JSON.stringify(barbershop))} key={service.id}/>)}
             </div>
         </div>
 
