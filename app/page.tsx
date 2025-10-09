@@ -54,9 +54,24 @@ const Home = async () =>{
         </div>
 
         {/* BANNER */}
-        <div className="relative mt-6 w-full h-[150px] rounded-xl">
-          <Image alt="Agende com os melhores Barbers" src="/banner-01.png" fill className="object-cover rounded-xl"/>
+        <div className="relative mt-6 w-full h-[150px] md:h-[300px] rounded-xl">
+          {/* Banner Desktop */}
+          <Image
+            alt="Agende com os melhores Barbers"
+            src="/banner-desktop.png"
+            fill
+            className="hidden md:block object-cover rounded-xl"
+          />
+        
+          {/* Banner Mobile */}
+          <Image
+            alt="Agende com os melhores Barbers"
+            src="/banner-mobile.png"
+            fill
+            className="block md:hidden object-cover rounded-xl"
+          />
         </div>
+
 
         {/* AGENDAMENTO */}
         {confirmedBookings.length > 0 && (
